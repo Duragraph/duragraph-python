@@ -40,11 +40,47 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# LLM providers
 openai = ["openai>=1.0.0"]
 anthropic = ["anthropic>=0.30.0"]
+gemini = ["google-genai>=1.0.0"]
+ollama = ["ollama>=0.4.0"]  # Will support gRPC in future
+cohere = ["cohere>=5.0.0"]
+
+# Vector stores
+chroma = ["chromadb>=0.4.0"]
+pinecone = ["pinecone>=3.0.0"]
+weaviate = ["weaviate-client>=4.0.0"]
+qdrant = ["qdrant-client>=1.0.0"]
+milvus = ["pymilvus>=2.0.0"]
+elasticsearch = ["elasticsearch>=8.0.0"]
+pgvector = ["psycopg[binary]>=3.0.0"]
+turso = ["libsql-experimental>=0.0.1"]
+
+# Knowledge graphs
+neo4j = ["neo4j>=5.0.0"]
+memgraph = ["gqlalchemy>=1.0.0"]
+arangodb = ["python-arango>=7.0.0"]
+
+# Document storage
+s3 = ["boto3>=1.26.0"]
+gcs = ["google-cloud-storage>=2.0.0"]
+azure = ["azure-storage-blob>=12.0.0"]
+
+# Observability
+otel = [
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+]
+
+# All integrations (core set)
 all = [
     "openai>=1.0.0",
     "anthropic>=0.30.0",
+    "google-genai>=1.0.0",
+    "ollama>=0.4.0",
+    "chromadb>=0.4.0",
+    "pinecone>=3.0.0",
     "opentelemetry-api>=1.20.0",
     "opentelemetry-sdk>=1.20.0",
 ]
