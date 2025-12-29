@@ -55,6 +55,9 @@ Thumbs.db
 .env
 .env.local
 
+# Internal specs (not for public)
+specs/
+
 # Build artifacts
 dist/
 

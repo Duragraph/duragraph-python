@@ -6,7 +6,10 @@ enabling semantic search and retrieval-augmented generation (RAG) workflows.
 Supported vector stores:
 - Chroma (local/self-hosted)
 - Pinecone (managed cloud)
-- More coming soon (Weaviate, Qdrant, pgvector, Milvus)
+- Qdrant (open-source, self-hosted/cloud)
+- Weaviate (open-source, self-hosted/cloud)
+- pgvector (PostgreSQL extension - works with Neon, Supabase)
+- More coming soon (Milvus, Elasticsearch)
 
 Example:
     ```python
@@ -45,6 +48,9 @@ __all__ = [
     # Implementations (lazy imports for optional deps)
     "ChromaVectorStore",
     "PineconeVectorStore",
+    "QdrantVectorStore",
+    "WeaviateVectorStore",
+    "PgVectorStore",
 ]
 
 
@@ -58,4 +64,16 @@ def __getattr__(name: str):
         from duragraph.vectorstores.pinecone import PineconeVectorStore
 
         return PineconeVectorStore
+    elif name == "QdrantVectorStore":
+        from duragraph.vectorstores.qdrant import QdrantVectorStore
+
+        return QdrantVectorStore
+    elif name == "WeaviateVectorStore":
+        from duragraph.vectorstores.weaviate import WeaviateVectorStore
+
+        return WeaviateVectorStore
+    elif name == "PgVectorStore":
+        from duragraph.vectorstores.pgvector import PgVectorStore
+
+        return PgVectorStore
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
