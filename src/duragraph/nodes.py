@@ -43,7 +43,7 @@ def node(
         @node()
         def my_processor(self, state):
             return {"processed": True}
-            
+
         @node()
         async def my_async_processor(self, state):
             await some_async_operation()
@@ -53,12 +53,13 @@ def node(
     def decorator(func: F) -> F:
         # Check if the original function is async
         is_async = inspect.iscoroutinefunction(func)
-        
+
         if is_async:
+
             @wraps(func)
             async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
                 return await func(*args, **kwargs)
-            
+
             async_wrapper._node_metadata = NodeMetadata(  # type: ignore
                 node_type="function",
                 name=name or func.__name__,
@@ -72,6 +73,7 @@ def node(
             async_wrapper._original_func = func  # type: ignore
             return async_wrapper  # type: ignore
         else:
+
             @wraps(func)
             def wrapper(*args: Any, **kwargs: Any) -> Any:
                 return func(*args, **kwargs)
