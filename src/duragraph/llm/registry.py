@@ -1,6 +1,5 @@
 """LLM provider registry for automatic provider selection."""
 
-import os
 from typing import Any
 
 from duragraph.llm.base import LLMProvider

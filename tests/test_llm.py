@@ -5,18 +5,35 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from duragraph.llm import LLMRequest, LLMResponse, get_provider
+from duragraph.llm import LLMRequest, get_provider
+
+# Check if optional dependencies are installed
+try:
+    import openai  # noqa: F401
+
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+
+try:
+    import anthropic  # noqa: F401
+
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
 
 
 class TestProviderRegistry:
     """Test provider registry functionality."""
 
+    @pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI not installed")
     def test_get_provider_openai_from_model(self) -> None:
         """Test getting OpenAI provider from model name."""
         with patch.dict(os.environ, {"OPENAI_API_KEY": "test-key"}):
             provider = get_provider("gpt-4o-mini")
             assert provider.__class__.__name__ == "OpenAIProvider"
 
+    @pytest.mark.skipif(not ANTHROPIC_AVAILABLE, reason="Anthropic not installed")
     def test_get_provider_anthropic_from_model(self) -> None:
         """Test getting Anthropic provider from model name."""
         with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "test-key"}):
@@ -29,6 +46,7 @@ class TestProviderRegistry:
             get_provider("unknown-model-xyz")
 
 
+@pytest.mark.skipif(not OPENAI_AVAILABLE, reason="OpenAI not installed")
 @pytest.mark.asyncio
 class TestOpenAIProvider:
     """Test OpenAI provider."""
@@ -74,6 +92,7 @@ class TestOpenAIProvider:
             }
 
 
+@pytest.mark.skipif(not ANTHROPIC_AVAILABLE, reason="Anthropic not installed")
 @pytest.mark.asyncio
 class TestAnthropicProvider:
     """Test Anthropic provider."""
