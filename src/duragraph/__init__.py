@@ -10,6 +10,7 @@ from duragraph.nodes import (
     router_node,
     tool_node,
 )
+from duragraph.tools import tool, get_global_registry, resolve_tool_calls
 from duragraph.types import AIMessage, HumanMessage, Message, State, ToolMessage
 
 __version__ = "0.1.0"
@@ -26,6 +27,10 @@ __all__ = [
     "entrypoint",
     # Edge
     "edge",
+    # Tools
+    "tool",
+    "get_global_registry",
+    "resolve_tool_calls",
     # Types
     "State",
     "Message",
